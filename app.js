@@ -203,6 +203,10 @@ const commonCountries = [
     "USA", "CAN", "MEX", "BRA", "ARG", "GBR", "FRA", "DEU", "ITA", "ESP", 
     "RUS", "CHN", "IND", "JPN", "AUS", "ZAF", "EGY", "NGA", "SAU", "KEN"
 ];
+const southAsia = [
+    "IND", "PAK", "TKM", "AFG", "BGD", "BTN", "KAZ", "KGZ", "NPL", "LKA", 
+    "TJK", "UZB"
+];
 
 
 // Create a very simplified version of a world map (just colored rectangles)
@@ -261,6 +265,7 @@ const clearSearchBtn = document.getElementById('clear-search');
 const selectAllBtn = document.getElementById('select-all');
 const deselectAllBtn = document.getElementById('deselect-all');
 const selectCommonBtn = document.getElementById('select-common');
+const selectSouthAsiaBtn = document.getElementById('select-south-asia');
 const regionFilter = document.getElementById('region-filter');
 const selectedCountDisplay = document.getElementById('selected-count');
 const startGameBtn = document.getElementById('start-game');
@@ -582,6 +587,20 @@ selectCommonBtn.addEventListener('click', () => {
     document.querySelectorAll('#countries-list input[type="checkbox"]').forEach(input => {
         const countryId = input.value;
         const isCommon = commonCountries.includes(countryId);
+        input.checked = isCommon;
+        
+        if (isCommon && !selectedCountries.includes(countryId)) {
+            selectedCountries.push(countryId);
+        } else if (!isCommon && selectedCountries.includes(countryId)) {
+            selectedCountries = selectedCountries.filter(id => id !== countryId);
+        }
+    });
+    updateSelectedCount();
+});
+selectSouthAsiaBtn.addEventListener('click', () => {
+    document.querySelectorAll('#countries-list input[type="checkbox"]').forEach(input => {
+        const countryId = input.value;
+        const isCommon = southAsia.includes(countryId);
         input.checked = isCommon;
         
         if (isCommon && !selectedCountries.includes(countryId)) {
