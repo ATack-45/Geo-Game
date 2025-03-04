@@ -1,0 +1,138 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>Geography Map Study Game</title>
+    <link href="https://cdnjs.cloudflare.com/ajax/libs/bootstrap/5.3.0/css/bootstrap.min.css" rel="stylesheet">
+    <link href="./styles.css" rel="stylesheet">
+</head>
+<body>
+    <div class="container-fluid py-3">
+        <div class="row">
+            <div class="col-12">
+                <h1 class="text-center mb-4">Geo Study Game</h1>
+            </div>
+        </div>
+        
+        <div class="row">
+            <!-- Sidebar for country selection -->
+            <div class="col-md-3 sidebar" id="setup-sidebar">
+                <div class="card">
+                    <div class="card-header bg-primary text-white">
+                        <h5 class="mb-0">Select Countries to Study</h5>
+                    </div>
+                    <div class="card-body">
+                        <div class="mb-3">
+                            <div class="input-group">
+                                <input type="text" class="form-control" id="country-search" placeholder="Search countries...">
+                                <button class="btn btn-outline-secondary" type="button" id="clear-search">Clear</button>
+                            </div>
+                        </div>
+                        <div class="mb-3">
+                            <button class="btn btn-sm btn-secondary me-1" id="select-all">Select All</button>
+                            <button class="btn btn-sm btn-secondary me-1" id="deselect-all">Deselect All</button>
+                            <button class="btn btn-sm btn-secondary" id="select-common">Common Countries</button>
+                        </div>
+                        <div class="mb-3">
+                            <label class="form-label">Regions:</label>
+                            <select class="form-select" id="region-filter">
+                                <option value="all">All Regions</option>
+                                <option value="europe">Europe</option>
+                                <option value="asia">Asia</option>
+                                <option value="africa">Africa</option>
+                                <option value="northamerica">North America</option>
+                                <option value="southamerica">South America</option>
+                                <option value="oceania">Oceania</option>
+                            </select>
+                        </div>
+                        <div id="countries-list" class="list-group">
+                            <!-- Countries will be added here dynamically -->
+                        </div>
+                
+                        <div class="mt-3">
+                            <p class="mb-1"><small>Selected: <span id="selected-count">0</span> countries</small></p>
+                            <button class="btn btn-success w-100" id="start-game">Start Game</button>
+                        </div>
+                    </div>
+                    <h5 class="text-danger"> Warning:</h4>
+                        <p>Not all countries on the dropdown are actually on the map, most of these countries are the small ones. Sorry for the inconvinience </p>
+                </div>
+            </div>
+            
+            <!-- Game sidebar (shown during gameplay) -->
+            <div class="col-md-3 sidebar d-none" id="game-sidebar">
+                <div class="card">
+                    <div class="card-header bg-primary text-white">
+                        <h5 class="mb-0">Game Progress</h5>
+                    </div>
+                    <div class="card-body">
+                        <div class="mb-3">
+                            <p><strong>Time:</strong> <span id="timer">00:00</span></p>
+                            <p><strong>Score:</strong> <span id="correct-count">0</span>/<span id="total-count">0</span></p>
+                            <p><strong>Remaining Tries:</strong> <span id="tries-left">3</span></p>
+                        </div>
+                        <div class="progress mb-3">
+                            <div class="progress-bar" id="progress-bar" role="progressbar" style="width: 0%"></div>
+                        </div>
+                        <div class="mb-3">
+                            <button class="btn btn-warning w-100 mb-2" id="give-up">Skip Country</button>
+                            <button class="btn btn-danger w-100" id="end-game">End Game</button>
+                        </div>
+                        <hr>
+                        <h6>Countries to Find:</h6>
+                        <div id="countries-to-find" class="list-group">
+                            <!-- Countries to find will be listed here -->
+                        </div>
+                    </div>
+                </div>
+            </div>
+            
+            <!-- Main map area -->
+            <div class="col-md-9">
+                <div id="map-container">
+                    <div id="game-prompt" class="alert alert-primary d-none">
+                        Click on: <strong id="current-country">Country Name</strong>
+                    </div>
+                    
+                    <!-- Simple world map SVG -->
+                    <svg viewBox="0 0 1000 500" id="world-map">
+                    </svg>
+                </div>
+            </div>
+        </div>
+    </div>
+    
+    <!-- Results Modal -->
+    <div class="modal fade" id="results-modal" tabindex="-1" aria-hidden="true">
+        <div class="modal-dialog modal-dialog-centered">
+            <div class="modal-content">
+                <div class="modal-header bg-primary text-white">
+                    <h5 class="modal-title">Game Results</h5>
+                    <button type="button" class="btn-close btn-close-white" data-bs-dismiss="modal" aria-label="Close"></button>
+                </div>
+                <div class="modal-body">
+                    <h3>Great job!</h3>
+                    <p>Time: <strong id="result-time">00:00</strong></p>
+                    <p>Accuracy: <strong id="result-accuracy">0%</strong></p>
+                    <p>Score: <strong id="result-score">0/0</strong></p>
+                    <div id="detailed-results">
+                        <p>Correct answers: <span id="correct-answers">0</span></p>
+                        <p>Incorrect answers: <span id="incorrect-answers">0</span></p>
+                        <p>Skipped countries: <span id="skipped-countries">0</span></p>
+                    </div>
+                </div>
+                <div class="modal-footer">
+                    <button type="button" class="btn btn-primary" data-bs-dismiss="modal">Close</button>
+                </div>
+            </div>
+        </div>
+    </div>
+
+    <!-- Bootstrap and game scripts -->
+    <script src="https://cdnjs.cloudflare.com/ajax/libs/bootstrap/5.3.0/js/bootstrap.bundle.min.js"></script>
+    <script src="./app.js"></script>
+</body>
+</html>
+    
+   
