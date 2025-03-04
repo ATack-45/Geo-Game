@@ -213,7 +213,7 @@ function loadRealisticWorldMap() {
         // Inject the SVG into the world map container
         worldMap.innerHTML = svgText;
 
-        extractAndConvertIDs();
+      
 
         // Remove all <title> elements to prevent default tooltips
         worldMap.querySelectorAll('title').forEach(title => title.remove());
@@ -475,7 +475,7 @@ function handleCountryClick(countryId) {
     } else {
         // Incorrect guess
         incorrectGuesses++;
-        triesLeft--;
+        triesLeft = triesLeft - .5;
         triesLeftElement.textContent = triesLeft;
         
         // Mark the guessed country
@@ -609,21 +609,5 @@ function initApp() {
 document.addEventListener('DOMContentLoaded', initApp);
 
 
-// Extract classes from all country elements and convert them to IDs
-function extractAndConvertIDs() {
-    // Query all <path> and <g> elements that have a class attribute
-    const countryElements = worldMap.querySelectorAll('path[class], g[class]');
-    countryElements.forEach(elem => {
-      // For debugging: log all classes of the element
-      console.log('Element classes:', [...elem.classList]);
-      
-      // If the element doesn't have an ID, use the first class as the ID.
-      // You can adjust this if the country code is stored in a different class.
-      if (!elem.id && elem.classList.length > 0) {
-        elem.id = elem.classList[0];
-      }
-    });
-  }
-  
-  // Call this function after your SVG is injected into the DOM.
+
   
